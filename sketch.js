@@ -35,11 +35,12 @@ function setup() {
   ty = mouseY;
 
   display = createVector(windowWidth,windowHeight);
+  //Pin Vectors (pseudo coordinates)
   v1 = createVector(1000,400);
   v2 = createVector(400, 200);
 
   //P tag with FA icon
-  p = createP('<span class="pin" onclick="test()"><i class="fas fa-map-marker-alt"></i></span>');
+  p = createP('<span class="pin" onclick="openPinInfo(v1)"><i class="fas fa-map-marker-alt"></i></span>');
   //p.position(v1.x - pinX, v1.y - pinY);
 
   //Initial Map Setting so it looks nice
@@ -75,13 +76,15 @@ function draw() {
   //rect(100, 100, 100, 100);
   //console.log(mouseX, mouseY);
   pop();
+  //debug();
+}
+
+function debug() {
   strokeWeight(2);
   line(display.x/2, 0, display.x/2, display.y);
   line(0, display.y/2, display.x, display.y/2);
   //rect(v1.x + tx, v1.y + ty, 20, 20);
   //rect(v2.x + tx, v2.y + ty, 20, 20);
-
-
 }
 
 function mouseDragged(){
@@ -97,9 +100,9 @@ function mouseClicked() {
   //clearInterval(scrollTo);
 }
 
-function scrollPinToCenter(){
+function scrollPinToCenter(pin){
     //Create a vector of the distance between them
-    var m = createVector(windowWidth/2 - (v1.x + tx), windowHeight/2 - (v1.y + ty));
+    var m = createVector(windowWidth/2 - (pin.x + tx), windowHeight/2 - (pin.y + ty));
     move();
 
     //Interval Animation
@@ -110,7 +113,7 @@ function scrollPinToCenter(){
       if (abs(m.x) < 0.1) {
         clearInterval(scrollTo);
       } else {
-        m.set(windowWidth/2 - (v1.x + tx), windowHeight/2 - (v1.y + ty))
+        m.set(windowWidth/2 - (pin.x + tx), windowHeight/2 - (pin.y + ty))
         //Incrementally make the difference from tx/ty and m.x/m.y = 0
         tx += m.x*0.2;
         ty += m.y*0.2;
@@ -131,11 +134,11 @@ function applyScale(s) {
     updateVector();
 }
 
-function test(){
-  //console.log('yo yo yo');
-  let title = document.getElementById('title');
+function openPinInfo(pin){
+  //Open menu with info from that specific pin
+  //let title = document.getElementById('title');
   //title.classList.toggle('hidden');
-  scrollPinToCenter();
+  scrollPinToCenter(pin);
 }
 
 function hide(){
