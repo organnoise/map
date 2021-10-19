@@ -1,0 +1,36 @@
+*{
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+canvas {
+  display: block;
+}
+
+p{
+  text-align:center;
+  font-size:50px;
+  padding: 2px 0px 2px 0px;
+  margin: 0px;
+}
+
+.pin {
+  color:red;
+  cursor: pointer;
+}
+
+#title {
+  background: antiquewhite;
+  width: 100%;
+  position: absolute;
+  z-index: 2;
+  transition: transform ease-out 0.3s;
+}
+
+.hidden {
+  transform: translateY(-100%);
+}
