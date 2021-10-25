@@ -40,8 +40,9 @@ function setup() {
   v2 = createVector(400, 200);
 
   pin1 = new Pin('pin1', 1200, 600, pinX, pinY);
+  pin2 = new Pin('pin2', 800, 800, pinX, pinY);
 
-
+  pins = [pin1,pin2];
   //P tag with FA icon
   p = createP('<span class="pin" onclick="openPinInfo(v1)"><i class="fas fa-map-marker-alt"></i></span>');
 
@@ -51,7 +52,7 @@ function setup() {
   tx = windowWidth * 0.5;
   ty = windowHeight * 0.5;
   p.position((v1.x - pinX) + tx, (v1.y - pinY) + ty);
-  pin1.setP(tx,ty);
+  pins.forEach((pin) => pin.setP(tx,ty));
 
 }
 
@@ -61,7 +62,7 @@ function windowResized() {
   display.set(windowWidth, windowHeight);
   tx = windowWidth * 0.5;
   ty = windowHeight * 0.5;
-  p.position((v1.x - pinX) + tx, (v1.y - pinY) + ty);
+  updateVector();
 }
 
 function draw() {
@@ -76,10 +77,8 @@ function draw() {
   scale(sf);
   image(bg, 0, 0);
   image(water, 0, 0);
-  //drawWater();
-  //rect(100, 100, 100, 100);
-  //console.log(mouseX, mouseY);
   pop();
+
   //debug();
 }
 
@@ -136,7 +135,8 @@ function applyScale(s) {
   ty = mouseY * (1 - s) + ty * s;
   scaleVector(v1, s);
   scaleVector(v2, s);
-  scaleVector(pin1.v, s);
+  //scaleVector(pin1.v, s);
+  pins.forEach((pin) => pin.scaleVector(s));
   updateVector();
 }
 
@@ -144,7 +144,7 @@ function openPinInfo(pin) {
   //Open menu with info from that specific pin
   //let title = document.getElementById('title');
   //title.classList.toggle('hidden');
-  
+
   scrollPinToCenter(pin);
 }
 
@@ -155,7 +155,7 @@ function hide() {
 //Move the vectors when you drag
 function updateVector() {
   p.position((v1.x - pinX) + tx, (v1.y - pinY) + ty);
-  pin1.setP(tx,ty);
+  pins.forEach((pin) => pin.setP(tx,ty));
 }
 //Move the vectors when you zoom
 function scaleVector(a, s) {
