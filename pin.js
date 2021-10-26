@@ -12,8 +12,10 @@ class Pin {
     //This will be where text about the pin goes eventually
     this.text = '';
 
-    //P tag with FA icon
-    this.p = createP('<span class="pin" onclick=openPinInfo('+variableName+'.v)><i class="fas fa-map-marker-alt"></i></span>');
+    //P tag with FA icon and onclick event
+    this.p = createP('<span class="pin" onclick="openPinInfo('+variableName+'.v)"><i class="fas fa-map-marker-alt"></i></span>');
+    //Enable zoom while scrolling on pin
+    this.p.mouseWheel(changeSize);
   }
 
   //Set where the <p> tag moves
@@ -21,10 +23,10 @@ class Pin {
     this.p.position((this.v.x - this.xOffset) + tx, (this.v.y - this.yOffset) + ty);
   }
 
+  //Move the vectors when you zoom
   scaleVector(s) {
     this.v.x *= s;
     this.v.y *= s;
   }
-
 
 }

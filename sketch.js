@@ -4,13 +4,7 @@ let sf = 1; // scaleFactor
 let x = 0; // pan X
 let y = 0; // pan Y
 
-let mx, my; // mouse coords;
 let tx, ty;
-
-let v1, v2;
-let p;
-
-let pin1;
 
 let pinX = 19;
 let pinY = 55;
@@ -30,30 +24,25 @@ function preload() {
 function setup() {
   canvas = createCanvas(windowWidth, windowHeight);
   canvas.style("overscroll-behavior-y", "contain");
-  canvas.mouseWheel(changeSize);
-  tx = mouseX;
-  ty = mouseY;
-
   display = createVector(windowWidth, windowHeight);
-  //Pin Vectors (pseudo coordinates)
-  v1 = createVector(1000, 400);
-  v2 = createVector(400, 200);
+  canvas.mouseWheel(changeSize);
 
-  pin1 = new Pin('pin1', 1200, 600, pinX, pinY);
-  pin2 = new Pin('pin2', 800, 800, pinX, pinY);
+  tx = display.x/2;
+  ty = display.y/2;
 
-  pins = [pin1,pin2];
-  //P tag with FA icon
-  p = createP('<span class="pin" onclick="openPinInfo(v1)"><i class="fas fa-map-marker-alt"></i></span>');
-
+  //Pins (Center is 0,0 ; top left is -display.x/2 ... etc)
+  pins = [
+    pin1 = new Pin('pin1', 1200, 600, pinX, pinY),
+    pin2 = new Pin('pin2', 800, 800, pinX, pinY),
+    pin3 = new Pin('pin3', 1000, 400, pinX, pinY),
+    pin4 = new Pin('pin4', -800, -100, pinX, pinY)
+  ];
 
   //Initial Map Setting so it looks nice
   applyScale(map(windowWidth, 500, 1650, 0.125, 0.3));
   tx = windowWidth * 0.5;
   ty = windowHeight * 0.5;
-  p.position((v1.x - pinX) + tx, (v1.y - pinY) + ty);
   pins.forEach((pin) => pin.setP(tx,ty));
-
 }
 
 function windowResized() {
@@ -68,8 +57,6 @@ function windowResized() {
 function draw() {
 
   background(30, 97, 110);
-  //background(255);
-  //rectMode(CENTER);
 
   push();
   imageMode(CENTER);
@@ -128,24 +115,13 @@ function scrollPinToCenter(pin) {
 }
 
 
-
-function applyScale(s) {
-  sf = sf * s;
-  tx = mouseX * (1 - s) + tx * s;
-  ty = mouseY * (1 - s) + ty * s;
-  scaleVector(v1, s);
-  scaleVector(v2, s);
-  //scaleVector(pin1.v, s);
-  pins.forEach((pin) => pin.scaleVector(s));
-  updateVector();
-}
-
 function openPinInfo(pin) {
+  //Center the pin
+  scrollPinToCenter(pin);
+
   //Open menu with info from that specific pin
   //let title = document.getElementById('title');
   //title.classList.toggle('hidden');
-
-  scrollPinToCenter(pin);
 }
 
 function hide() {
@@ -154,13 +130,16 @@ function hide() {
 
 //Move the vectors when you drag
 function updateVector() {
-  p.position((v1.x - pinX) + tx, (v1.y - pinY) + ty);
   pins.forEach((pin) => pin.setP(tx,ty));
 }
-//Move the vectors when you zoom
-function scaleVector(a, s) {
-  a.x *= s;
-  a.y *= s;
+
+function applyScale(s) {
+  sf = sf * s;
+  tx = mouseX * (1 - s) + tx * s;
+  ty = mouseY * (1 - s) + ty * s;
+
+  pins.forEach((pin) => pin.scaleVector(s));
+  updateVector();
 }
 
 function changeSize(event) {
