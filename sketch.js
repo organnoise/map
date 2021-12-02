@@ -120,12 +120,15 @@ function openPinInfo(pin) {
   scrollPinToCenter(pin);
 
   //Open menu with info from that specific pin
-  //let title = document.getElementById('title');
-  //title.classList.toggle('hidden');
+  //Show Info menu if it's hidden
+  if(info.classList.contains('hidden')) toggleInfo();
+  //Fade out content
+  //Load new content
+  //Fade in content
 }
 
-function hide() {
-  title.classList.toggle('hidden');
+function toggleInfo() {
+  info.classList.toggle('hidden');
 }
 
 //Move the vectors when you drag

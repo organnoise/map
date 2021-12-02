@@ -13,7 +13,8 @@ class Pin {
     this.text = '';
 
     //P tag with FA icon and onclick event
-    this.p = createP('<span class="pin" onclick="openPinInfo('+variableName+'.v)"><i class="fas fa-map-marker-alt"></i></span>');
+    this.p = createDiv('<span onclick="openPinInfo('+variableName+'.v)"><i class="fas fa-map-marker-alt"></i></span>');
+    this.p.class('pin');
     //Enable zoom while scrolling on pin
     this.p.mouseWheel(changeSize);
   }
