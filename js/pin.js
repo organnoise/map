@@ -1,5 +1,5 @@
 class Pin {
-  constructor(variableName, x, y, xOffset, yOffset){
+  constructor(variableName, x, y, xOffset, yOffset, info){
     //I don't know how else to get the variable name
     this.variableName = variableName;
     //Psuedo coordinates
@@ -9,12 +9,13 @@ class Pin {
     this.xOffset = xOffset;
     this.yOffset = yOffset;
 
-    //This will be where text about the pin goes eventually
-    this.text = '';
+    //Any info needed for the interface (Title, Description, Video Link, etc.)
+    this.info = info;
 
     //P tag with FA icon and onclick event
-    this.p = createDiv('<span onclick="openPinInfo('+variableName+'.v)"><i class="fas fa-map-marker-alt"></i></span>');
+    this.p = createDiv('<span onclick="openPinInfo('+variableName+')"><i class="fas fa-map-marker-alt"></i></span>');
     this.p.class('pin');
+    this.p.parent('map-canvas');
     //Enable zoom while scrolling on pin
     this.p.mouseWheel(changeSize);
   }

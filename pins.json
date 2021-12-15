@@ -1,0 +1,43 @@
+{
+  "pins": [{
+      "name": "pin1",
+      "x": 1200,
+      "y": 600,
+      "info": {
+        "title": "Pin 1",
+        "video": "35117877",
+        "description": "The southern waterways, and sometimes the Prince of Wales Strait, form part of the disputed Northwest Passage which the Government of Canada claims are Canadian Internal Waters, while other nations state they are either territorial waters or international waters."
+      }
+    },
+    {
+      "name": "pin2",
+      "x": 800,
+      "y": 800,
+      "info": {
+        "title": "Pin 2",
+        "video": "339657490",
+        "description": "In industry, near-infrared spectroscopy is used with aqueous solutions as the greater intensity of the lower overtones of water means that glass cuvettes with short path-length may be employed. To observe the fundamental stretching absorption spectrum of water or of an aqueous solution in the region around 3500 cm−1 (2.85 μm) a path length of about 25 μm is needed. Also, the cuvette must be both transparent around 3500 cm−1 and insoluble in water; calcium fluoride is one material that is in common use for the cuvette windows with aqueous solutions."
+      }
+    },
+    {
+      "name": "pin3",
+      "x": 1000,
+      "y": 400,
+      "info": {
+        "title": "Pin 3",
+        "video": "44367063",
+        "description": "High elevations on mountains produce colder climates than at sea level at similar latitude. These colder climates strongly affect the ecosystems of mountains: different elevations have different plants and animals. Because of the less hospitable terrain and climate, mountains tend to be used less for agriculture and more for resource extraction, such as mining and logging, along with recreation, such as mountain climbing and skiing."
+      }
+    },
+    {
+      "name": "pin4",
+      "x": -800,
+      "y": -100,
+      "info": {
+        "title": "Pin 4",
+        "video": "215926034",
+        "description": "This is Pin 4's description"
+      }
+    }
+  ]
+}

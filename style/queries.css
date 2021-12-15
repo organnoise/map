@@ -1,0 +1,11 @@
+/* If screen is wider than 768px */
+@media screen and (min-width: 768px) {
+  .info {
+    width: 40%;
+  }
+
+  .info-video {
+    width: 100%;
+  }
+
+}
