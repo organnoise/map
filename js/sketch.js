@@ -2,6 +2,8 @@ let canvas;
 let debug = false;
 
 let sf = 1; // scaleFactor
+let minZoom = 0.15;
+let maxZoom = 0.5;
 let x = 0; // pan X
 let y = 0; // pan Y
 
@@ -13,6 +15,7 @@ let pinsData;
 // Pins Array
 let pins = [];
 let pinScroll;
+let pinTracker;
 //Pin Offset related to CSS
 let pinX = 19;
 let pinY = 55;
@@ -22,6 +25,9 @@ let water;
 
 let display;
 let scrollTo = null;
+
+// Mobile Menu Setup
+const menu = document.getElementById('menuList');
 
 // Info Window Setup
 const info = document.getElementById('info');
@@ -39,9 +45,7 @@ anime({
 
 // Disable pinch zoom on the canvas by ignoring the flag that specifies track pad
 document.getElementById("map-main").addEventListener('wheel', event => {
-  const {
-    ctrlKey
-  } = event
+  const { ctrlKey } = event
   if (ctrlKey) {
     event.preventDefault();
     return
@@ -63,6 +67,7 @@ function setup() {
   canvas.style("overscroll-behavior-y", "contain");
   canvas.parent('map-canvas');
   display = createVector(windowWidth, windowHeight);
+  // Apply Zooming Function to mouseWheel
   canvas.mouseWheel(changeSize);
 
   t = createVector(display.x / 2, display.y / 2);
@@ -99,6 +104,7 @@ function windowResized() {
 function draw() {
 
   background(30, 97, 110);
+  // background(172, 193, 206);
 
   push();
   imageMode(CENTER);
@@ -121,22 +127,21 @@ function runDebug() {
   }
 }
 
-function mouseDragged() {
-  //Stop Animating the Marker
-  // clearInterval(scrollTo);
-  // Anime way to pause the animation if scrolling
-  if (pinScroll) pinScroll.pause();
-
-  t.x -= pmouseX - mouseX;
-  t.y -= pmouseY - mouseY;
-  updateVector();
+function mouseDragged(e) {
+  // Only adjust map if dragging on it (don't adjust while clicking elsewhere)
+  if (e.target === canvas.canvas) {
+    //Stop Animating the Marker
+    // clearInterval(scrollTo);
+    // Anime way to pause the animation if scrolling
+    if (pinScroll) pinScroll.pause();
+    // Update t vector based on mouse movement
+    t.x -= pmouseX - mouseX;
+    t.y -= pmouseY - mouseY;
+    updateVector();
+  }
 }
 
-function mouseClicked() {
-  //Stop Animating the Marker
-  //clearInterval(scrollTo);
-}
-
+// Animate the map to center a pin
 function scrollPinToCenter(pin, callback) {
   // Create a vector of the distance between them
   // let m = createVector(windowWidth / 2 - (pin.x + t.x), windowHeight / 2 - (pin.y + t.y));
@@ -160,7 +165,7 @@ function scrollPinToCenter(pin, callback) {
   //     }
   //   }
   // }
-
+  if (!menu.classList.contains('menu-hidden')) toggleMenu();
   // ANIME Version
   pinScroll = anime({
     targets: t,
@@ -179,8 +184,6 @@ function scrollPinToCenter(pin, callback) {
   });
 }
 
-let pinTracker;
-
 function openPinInfo(pin) {
   // If it's not the same pin you clicked last time, then proceed
   if (pin !== pinTracker) {
@@ -190,7 +193,7 @@ function openPinInfo(pin) {
       opacity: 0,
       duration: () => {
         // Make fade time 0 if the info window is hidden
-        let fadeTime = !info.classList.contains('hidden') * 500;
+        let fadeTime = !info.classList.contains('info-hidden') * 500;
         return fadeTime;
       },
       begin: () => {
@@ -203,7 +206,7 @@ function openPinInfo(pin) {
 
           //Open menu with info from that specific pin
           //Show Info menu if it's hidden
-          if (info.classList.contains('hidden')) toggleInfo();
+          if (info.classList.contains('info-hidden')) toggleInfo();
           //Load new content
           infoTitle.innerText = pin.info.title;
           infoDescription.innerText = pin.info.description;
@@ -224,21 +227,27 @@ function openPinInfo(pin) {
     });
   } else {
     // If not a new pin only manage the hidden CSS
-    if (info.classList.contains('hidden')) toggleInfo();
+    if (info.classList.contains('info-hidden')) toggleInfo();
   }
   // Update the pin tracker variable
   pinTracker = pin;
 }
 
+// Show/Hide the info panel via CSS
 function toggleInfo() {
-  info.classList.toggle('hidden');
+  info.classList.toggle('info-hidden');
 }
 
-//Move the vectors when you drag
+function toggleMenu(){
+  menu.classList.toggle('menu-hidden');
+}
+
+//Move the vectors for all the pins for dragging, zooming, etc.
 function updateVector() {
   pins.forEach((pin) => pin.setP(t.x, t.y));
 }
 
+// Map Zoom Feature
 function applyScale(s) {
   sf = sf * s;
   t.x = mouseX * (1 - s) + t.x * s;
@@ -248,6 +257,15 @@ function applyScale(s) {
   updateVector();
 }
 
-function changeSize(event) {
-  applyScale(event.deltaY > 0 ? 1.05 : 0.95);
+// Zoom on wheeel events (with zoom constraint)
+function changeSize(e) {
+  // applyScale(e.deltaY > 0 ? 1.05 : 0.95);
+  let dy = e.deltaY > 0 ? 1.05 : 0.95;
+  let testScale = sf * dy;
+
+  // Only permit zooming if the testScale is within bounds
+  if (testScale >= minZoom && testScale <= maxZoom ){
+    applyScale(dy);
+  }
+
 }

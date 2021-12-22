@@ -4,7 +4,20 @@
 }
 
 :root {
+  /* Fonts */
+  --title-font: 'Raleway', sans-serif;
+  --p-font: 'Open Sans Condensed', sans-serif;
+  /* Title Bar Height */
   --titlebar-height: 80px;
+  /* Galiano Color Code */
+  --primary-color: #446A40;
+  --secondary-color: #24968D;
+  --third-color: #CB7728;
+  --text-color: #000000;
+  --tertiary-1-color: #CFDCA6;
+  --tertiary-2-color: #53C2BC;
+  --base-color: #ffffff;
+
 }
 
 html, body {
@@ -19,11 +32,12 @@ canvas {
   display: block;
 }
 
+
+/* Pin Settings */
 .pin{
   overflow: hidden;
 }
 
-/* Pin Settings */
 .pin span{
  color:#b4e773;
  cursor: pointer;
@@ -36,11 +50,12 @@ canvas {
 
 h1, h2, h3, h4{
   /* 100, 200, 600, 700 */
-  font-family: 'Raleway', sans-serif;
+  font-family: var(--title-font);
 }
 
+
 p{
-  font-family: 'Open Sans Condensed', sans-serif;
+  font-family: var(--p-font);
 }
 
 .ui {
@@ -48,22 +63,67 @@ p{
   width: 100%;
 }
 
+/* Title Bar/ Main Nav Bar */
 .title {
   text-align:center;
-  position: absolute;
-  padding: 1rem 0;
-  margin: 0px;
-  background: antiquewhite;
+  position: fixed;
+  /* padding: 1rem 0; */
+  margin: 0;
+  background: var(--tertiary-1-color);
   width: 100%;
   height: var(--titlebar-height);
-  z-index: 1;
+  z-index: 999;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.title h1 {
-  font-size:4ch;
-  font-weight: 200;
+.title img {
+  height:var(--titlebar-height);
 }
 
+.menu-list{
+  list-style-type: none;
+  padding-top: 1em;
+  background: var(--tertiary-1-color);
+  position: absolute;
+  top: 99%;
+  left: 0;
+  text-align: center;
+  width: 100%;
+  transition: opacity ease-out 500ms 150ms;
+  /* color: var(--base-color); */
+}
+
+
+/* Center the burger icon */
+.menu-bar {
+  margin: auto;
+}
+
+.menu-toggle {
+  font-size: 2em;
+}
+
+.menu-bar li {
+  margin-right: 2rem;
+  margin-bottom: 1em;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 1.5em;
+}
+
+.menu-bar li:hover {
+  color: #626466;
+}
+
+.menu-hidden {
+  opacity: 0;
+  transform: translateY(-200%);
+  transition: opacity ease-out 300ms, transform ease-out 200ms 400ms;
+}
+
+/* Map Layers Interface */
 .map-layers{
   position: absolute;
   z-index: 1;
@@ -72,11 +132,19 @@ p{
 }
 
 .map-layers button {
-
   background-color: seagreen;
   /* background-color: tomato;  */
+  font-family: var(--title-font);
 }
 
+.main-layers-icon {
+  padding-right: .25em;
+}
+
+.dropdown-item.active, .dropdown-item:active {
+  background-color: var(--tertiary-2-color)
+}
+/* Info Window */
 .info {
   position: absolute;
   width: 100%;
@@ -167,7 +235,7 @@ p{
   transform: rotate(-45deg);
 }
 
-.hidden {
+.info-hidden {
   transform: translateY(100%);
 }
 /* Close Button End */

@@ -23,10 +23,19 @@
   </head>
   <body>
     <div class="ui">
-      <div class="title" >
-        <h1 id="title">Galiano Island</h1>
-      </div>
-      <div id="info" class="info hidden">
+      <navbar class="title" >
+        <!-- <h1 id="title">Galiano Island</h1> -->
+        <img src="/img/galiano_logo.png" alt="Galiano Logo">
+        <div class="menu-bar">
+          <i class="fas fa-bars menu-toggle" id='menuToggle' onclick="toggleMenu()"></i>
+          <ul class="menu-list menu-hidden" id="menuList">
+            <li>About</li>
+            <li>Resources</li>
+            <li>Conservatory</li>
+          </ul>
+        </div>
+      </navbar>
+      <div id="info" class="info info-hidden">
         <div class="info-title">
           <span class="close" onclick="toggleInfo()"></span>
             <h1 id="info-title" class="">Info Title</h1>
@@ -38,13 +47,12 @@
               <p id="info-description"> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip  ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.HIIIII</p>
             </div>
           </div>
-          <!-- Default dropup button -->
+          <!-- Layers Button -->
             <div id="map-layers" class="btn-group dropup map-layers">
               <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
-               <i class="fas fa-layer-group"></i>
-              </button>
+               <i class="fas fa-layer-group main-layers-icon"></i> Layers </button>
               <ul class="dropdown-menu">
-                <!-- Dropdown menu links -->
+                <!-- Layers -->
                 <li><a class="dropdown-item active" href="#" id="history">Oral History</a></li>
                 <li><a class="dropdown-item" href="#" id="water" >Water</a></li>
                 <li><a class="dropdown-item" href="#" id="energy">Energy + Stationary</a></li>
@@ -65,5 +73,7 @@
         </div>
         <!-- Bootstrap JS -->
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+      <!-- Layer Button -->
+      <script src="js/layers.js"></script>
     </body>
 </html>
