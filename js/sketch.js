@@ -262,10 +262,10 @@ function changeSize(e) {
   // applyScale(e.deltaY > 0 ? 1.05 : 0.95);
   let dy = e.deltaY > 0 ? 1.05 : 0.95;
   let testScale = sf * dy;
-
+  applyScale(dy);
   // Only permit zooming if the testScale is within bounds
   if (testScale >= minZoom && testScale <= maxZoom ){
-    applyScale(dy);
+    // applyScale(dy);
   }
 
 }
