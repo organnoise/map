@@ -18,6 +18,17 @@ class Pin {
     this.p.parent('map-canvas');
     //Enable zoom while scrolling on pin
     this.p.mouseWheel(changeSize);
+
+    // this.p.elt.addEventListener('touchstart', event => {
+    //     console.log(event.touches.length);
+    //     if (event.touches.length > 1) event.preventDefault();
+    //     return
+    // }, {
+    //   passive: false
+    // })
+
+    // this.p.style('font-size', `${50}px`);
+    // this.xOffset = this.yOffset = 50;
   }
 
   //Set where the <p> tag moves

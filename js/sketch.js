@@ -2,7 +2,7 @@ let canvas;
 let debug = false;
 
 let sf = 1; // scaleFactor
-let minZoom = 0.15;
+let minZoom = 0.085;
 let maxZoom = 0.5;
 let x = 0; // pan X
 let y = 0; // pan Y
@@ -54,6 +54,7 @@ document.getElementById("map-main").addEventListener('wheel', event => {
   passive: false
 })
 
+
 //Layer PNGs - could be SVGs
 function preload() {
   bg = loadImage('img/aerial.png');
@@ -66,9 +67,26 @@ function setup() {
   canvas = createCanvas(windowWidth, windowHeight);
   canvas.style("overscroll-behavior-y", "contain");
   canvas.parent('map-canvas');
+  canvas.id("canvas");
   display = createVector(windowWidth, windowHeight);
   // Apply Zooming Function to mouseWheel
   canvas.mouseWheel(changeSize);
+
+  // HAMMER for touch (to stop map from breaking on mobile)
+  // set options to prevent default behaviors for swipe, pinch, etc
+  let options = {
+    preventDefault: true
+  };
+
+  // Target the container div for the entire map
+  let hammer = new Hammer(document.querySelector('#map-canvas'), options);
+  hammer.get('pinch').set({ enable: true });
+  hammer.get('pan').set({ enable: true });
+  // hammer.get('rotate').set({ enable: true });
+  hammer.on("pinch", e => {
+    changeSizeTouch(e)
+  });
+
 
   t = createVector(display.x / 2, display.y / 2);
 
@@ -262,10 +280,22 @@ function changeSize(e) {
   // applyScale(e.deltaY > 0 ? 1.05 : 0.95);
   let dy = e.deltaY > 0 ? 1.05 : 0.95;
   let testScale = sf * dy;
-  applyScale(dy);
+  // applyScale(dy);
   // Only permit zooming if the testScale is within bounds
   if (testScale >= minZoom && testScale <= maxZoom ){
-    // applyScale(dy);
+    applyScale(dy);
   }
+}
+  let pdy = 0;
+  // Zoom on wheeel events (with zoom constraint)
+  function changeSizeTouch(e) {
+    let dy = e.scale - pdy > 0 ? 1.05 : 0.95;
+    // Shitty way to debug since mobile has no console
+    // infoDescription.innerText = dy;
+    let testScale = sf * dy;
 
+    if (testScale >= minZoom && testScale <= maxZoom ){
+      applyScale(dy);
+    }
+    pdy = e.scale;
 }
