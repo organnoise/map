@@ -5,7 +5,7 @@ class Pin {
     //Psuedo coordinates
     this.v = createVector(x,y);
 
-    //Offset for pin CSS
+    //Offset for pin CSS (the width and height of the container div)
     this.xOffset = xOffset;
     this.yOffset = yOffset;
 
@@ -14,26 +14,17 @@ class Pin {
 
     //P tag with FA icon and onclick event
     this.p = createDiv('<span onclick="openPinInfo('+variableName+')"><i class="fas fa-map-marker-alt"></i></span>');
-    this.p.class('pin');
+    // CSS to put the pin icon in the center of each div
+    this.p.class('pin pin-container');
     this.p.parent('map-canvas');
     //Enable zoom while scrolling on pin
     this.p.mouseWheel(changeSize);
-
-    // this.p.elt.addEventListener('touchstart', event => {
-    //     console.log(event.touches.length);
-    //     if (event.touches.length > 1) event.preventDefault();
-    //     return
-    // }, {
-    //   passive: false
-    // })
-
-    // this.p.style('font-size', `${50}px`);
-    // this.xOffset = this.yOffset = 50;
   }
-
-  //Set where the <p> tag moves
+  //Set where the parent <div> moves
   setP(tx, ty){
-    this.p.position((this.v.x - this.xOffset) + tx, (this.v.y - this.yOffset) + ty);
+    // this.p.position((this.v.x - this.xOffset) + tx, (this.v.y - this.yOffset) + ty);
+    // x pos + translate pos - divSize/2 (the center of the div)
+    this.p.position((this.v.x + tx) - this.xOffset*.5, (this.v.y + ty) - this.yOffset*.5);
   }
 
   //Move the vectors when you zoom

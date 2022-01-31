@@ -17,8 +17,8 @@ let pins = [];
 let pinScroll;
 let pinTracker;
 //Pin Offset related to CSS
-let pinX = 19;
-let pinY = 55;
+let pinX = 100;
+let pinY = 100;
 
 let bg;
 let water;
@@ -101,7 +101,6 @@ function setup() {
       pinsData.pins[index].info))
   });
 
-
   //Initial Map Setting so it looks nice
   applyScale(map(windowWidth, 500, 1650, 0.125, 0.3));
   t.x = windowWidth * 0.5;
@@ -134,13 +133,14 @@ function draw() {
 
   runDebug();
 }
-
+let test;
 function runDebug() {
   if (debug) {
     strokeWeight(2);
     line(display.x / 2, 0, display.x / 2, display.y);
     line(0, display.y / 2, display.x, display.y / 2);
-    //rect(v1.x + t.x, v1.y + t.y, 20, 20);
+
+
     //rect(v2.x + t.x, v2.y + t.y, 20, 20);
   }
 }

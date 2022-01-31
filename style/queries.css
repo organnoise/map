@@ -34,3 +34,10 @@
     display: none;
   }
 }
+
+@media screen and (max-width: 400px) {
+  /* shrink pins for mobile */
+  .pin span {
+    font-size: 2em;
+  }
+}

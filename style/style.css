@@ -44,13 +44,30 @@ canvas {
   /* overflow: hidden; */
 }
 
+.pin-container{
+  width: 100px;
+  height: 100px;
+  display: flex;
+  place-content: center;
+  align-items: flex-end;
+  pointer-events: none;
+}
+
 .pin span{
  color:#b4e773;
- cursor: pointer;
- /* font-size determines offset*/
- font-size:45px;
  padding: 2px 0px 2px 0px;
  margin: 0px;
+/* New way to center pins and be able to adjust their size */
+ display: flex;
+ /* font size is adjustable now */
+ font-size: 2.5em;
+ padding-bottom: 50%;
+ z-index: 2;
+}
+
+.pin i{
+  cursor: pointer;
+  pointer-events: all;
 }
 
 /* UI */
