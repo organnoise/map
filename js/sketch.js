@@ -17,8 +17,8 @@ let pins = [];
 let pinScroll;
 let pinTracker;
 //Pin Offset related to CSS
-let pinX = 100;
-let pinY = 100;
+let pinX = 50;
+let pinY = 50;
 
 let bg;
 let water;
